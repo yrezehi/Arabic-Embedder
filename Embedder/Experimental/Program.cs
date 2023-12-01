@@ -1,3 +1,6 @@
 ﻿using Embedder.Datasets;
+using Embedder.Datasets.Extensions;
 
-IList<Pair> dataset = DatasetLoader.Load("Datasets/Data/train.csv");
+Dataset dataset = DatasetSpliter.Split(DatasetLoader.Load("Datasets/Data/train.csv"));
+
+dataset.PrintPreview();
