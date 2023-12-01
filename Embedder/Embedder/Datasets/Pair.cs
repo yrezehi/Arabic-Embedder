@@ -10,7 +10,7 @@ namespace Embedder.Datasets
 
         public Pair(string firstPair, string secondPair, int label) =>
             (FirstPair, SecondPair, Label) = (firstPair, secondPair, label);
-        public static Pair Create(string firstPair, string secondPair, int label) =>
-            new Pair(firstPair, secondPair, label);
+        public static Pair Create(string firstPair, string secondPair, string label) =>
+            new Pair(firstPair, secondPair, int.Parse(label));
     }
 }

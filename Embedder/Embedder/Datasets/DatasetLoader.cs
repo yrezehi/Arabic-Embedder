@@ -15,7 +15,7 @@ namespace Embedder.Datasets
         {
             var pairs = new List<Pair>();
 
-            using (TextFieldParser parser = new TextFieldParser)
+            using (TextFieldParser parser = new TextFieldParser(Path))
             {
                 parser.SetDelimiters(DELIMITERS);
                 parser.HasFieldsEnclosedInQuotes = true;
@@ -24,14 +24,19 @@ namespace Embedder.Datasets
 
                 while (!parser.EndOfData)
                 {
-                    pairs.Add(new Pair());
+                    string[]? fields = parser.ReadFields();
+
+                    if (fields != null && fields.Length > 3)
+                    {
+                        pairs.Add(Pair.Create(fields[0], fields[1], fields[2]));
+                    }
                 }
             }
+
+            return pairs;
         }
 
         public static DatasetLoader Load(string path) =>
             new DatasetLoader(path);
-      
-
     }
 }
