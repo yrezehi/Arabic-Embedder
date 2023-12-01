@@ -8,8 +8,15 @@ namespace Embedder.Datasets
 
         private static string DELIMITERS = ",";
 
-        public DatasetLoader(string path) =>
+        public DatasetLoader(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException(path);
+            }
+
             Path = path;
+        }
 
         public IList<Pair> Load()
         {
@@ -26,7 +33,7 @@ namespace Embedder.Datasets
                 {
                     string[]? fields = parser.ReadFields();
 
-                    if (fields != null && fields.Length > 3)
+                    if (fields != null && fields.Length > 2)
                     {
                         pairs.Add(Pair.Create(fields[0], fields[1], fields[2]));
                     }
@@ -36,7 +43,7 @@ namespace Embedder.Datasets
             return pairs;
         }
 
-        public static DatasetLoader Load(string path) =>
-            new DatasetLoader(path);
+        public static IList<Pair> Load(string path) =>
+            new DatasetLoader(path).Load();
     }
 }
