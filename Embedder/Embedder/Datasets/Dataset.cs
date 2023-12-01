@@ -16,6 +16,9 @@ namespace Embedder.Datasets
         public Dataset(IList<Pair> train, IList<Pair> validation, IList<Pair> test) =>
             (Train, Validation, Test) = (train, validation, test);
 
+        public IList<Pair> Unsplit() =>
+            Train.Concat(Validation).Concat(Test).ToList();
+
         public static Dataset Instance(IList<Pair> train, IList<Pair> validation, IList<Pair> test) =>
             new Dataset(train, validation, test);
         public static Dataset Instance() =>
