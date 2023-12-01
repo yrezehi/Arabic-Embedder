@@ -12,12 +12,12 @@ namespace Embedder.Datasets
         {
             Dataset dataset = Dataset.Instance();
 
-            int trainLength = (int)Math.Round(unsplittedDataset.Count * .70);
-            int validtionLength = (int)Math.Round(unsplittedDataset.Count * .20);
+            int trainLength = (int)(unsplittedDataset.Count * .70);
+            int validtionLength = (int)(unsplittedDataset.Count * .20);
 
             dataset.Train = unsplittedDataset.Take(trainLength).ToList();
-            dataset.Validation = unsplittedDataset.Skip(trainLength).Take(validtionLength - trainLength).ToList();
-            dataset.Test = unsplittedDataset.Skip(validtionLength).ToList();
+            dataset.Validation = unsplittedDataset.Skip(trainLength).Take(validtionLength).ToList();
+            dataset.Test = unsplittedDataset.Skip(trainLength + validtionLength).ToList();
 
             return dataset;
         }
